@@ -9,6 +9,7 @@ defmodule Indexer.Block.Fetcher do
 
   alias EthereumJSONRPC.{Blocks, FetchedBeneficiaries}
   alias Explorer.Chain.{Address, Block, Import}
+  alias Explorer.Chain.Block.Range
   alias Indexer.{AddressExtraction, CoinBalance, MintTransfer, Token, TokenTransfers, Tracer}
   alias Indexer.Address.{CoinBalances, TokenBalances}
   alias Indexer.Block.Fetcher.Receipts
@@ -133,15 +134,16 @@ defmodule Indexer.Block.Fetcher do
            __MODULE__.import(
              state,
              %{
-               addresses: %{params: addresses},
                address_coin_balances: %{params: coin_balances_params_set},
                address_token_balances: %{params: address_token_balances},
-               blocks: %{params: blocks},
+               addresses: %{params: addresses},
                block_second_degree_relations: %{params: block_second_degree_relations_params},
+               blocks: %{params: blocks},
                logs: %{params: logs},
                token_transfers: %{params: token_transfers},
                tokens: %{on_conflict: :nothing, params: tokens},
-               transactions: %{params: transactions_with_receipts}
+               transactions: %{params: transactions_with_receipts},
+               validation_rewards: %{params: beneficiary_params_set}
              }
            ) do
       {:ok, %{inserted: inserted, errors: blocks_errors ++ beneficiaries_errors}}

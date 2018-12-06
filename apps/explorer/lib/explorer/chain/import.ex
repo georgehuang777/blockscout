@@ -20,7 +20,8 @@ defmodule Explorer.Chain.Import do
     Import.Tokens,
     Import.TokenTransfers,
     Import.Address.CurrentTokenBalances,
-    Import.Address.TokenBalances
+    Import.Address.TokenBalances,
+    Import.ValidationRewards
   ]
 
   quoted_runner_option_value =
