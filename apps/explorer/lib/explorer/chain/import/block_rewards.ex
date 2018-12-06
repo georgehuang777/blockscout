@@ -41,8 +41,12 @@ defmodule Explorer.Chain.Import.BlockRewards do
   @impl Import.Runner
   def timeout, do: @timeout
 
-  @spec insert([map()], %{required(:timeout) => timeout}) :: {:ok, [BlockReward.t()]} | {:error, [Changeset.t()]}
-  defp insert(changes_list, %{timeout: timeout, timestamps: timestamps}) when is_list(changes_list) do
+  @spec insert([map()], %{
+          required(:timeout) => timeout,
+          required(:timestamps) => Import.timestamps()
+        }) :: {:ok, [BlockReward.t()]} | {:error, [Changeset.t()]}
+  defp insert(changes_list, %{timeout: timeout, timestamps: timestamps})
+       when is_list(changes_list) do
     Import.insert_changes_list(
       changes_list,
       for: ecto_schema_module(),

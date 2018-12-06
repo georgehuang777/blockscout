@@ -12,7 +12,7 @@ defmodule Explorer.Chain.Import do
     Import.Addresses,
     Import.Address.CoinBalances,
     Import.Blocks,
-    Import.BlockRewards
+    Import.BlockRewards,
     Import.Block.SecondDegreeRelations,
     Import.Transactions,
     Import.Transaction.Forks,
@@ -21,7 +21,7 @@ defmodule Explorer.Chain.Import do
     Import.Tokens,
     Import.TokenTransfers,
     Import.Address.CurrentTokenBalances,
-    Import.Address.TokenBalances,
+    Import.Address.TokenBalances
   ]
 
   quoted_runner_option_value =
