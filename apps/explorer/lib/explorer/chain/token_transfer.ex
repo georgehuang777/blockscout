@@ -25,7 +25,7 @@ defmodule Explorer.Chain.TokenTransfer do
   use Ecto.Schema
 
   import Ecto.Changeset
-  import Ecto.Query, only: [from: 2, dynamic: 2, limit: 2, where: 3]
+  import Ecto.Query, only: [from: 2, limit: 2, where: 3]
 
   alias Explorer.Chain.{Address, Hash, Token, TokenTransfer, Transaction}
   alias Explorer.{PagingOptions, Repo}
@@ -148,55 +148,32 @@ defmodule Explorer.Chain.TokenTransfer do
   end
 
   @doc """
-  Builds a dynamic query expression to identify if there is a token transfer
-  related to the hash.
+  Builds a query to fetch transactions with token transfers.
   """
-  def dynamic_any_address_fields_match(:to, address_bytes) do
-    dynamic(
-      [t],
-      t.hash ==
-        fragment(
-          ~s"""
-          (SELECT tt.transaction_hash
-          FROM "token_transfers" AS tt
-          WHERE (tt."to_address_hash" = ?)
-          LIMIT 1)
-          """,
-          ^address_bytes
-        )
+  def where_any_address_fields_match(query, :to, address_hash) do
+    from(
+      t in query,
+      join: tt in TokenTransfer,
+      on: tt.transaction_hash == t.hash,
+      where: tt.to_address_hash == ^address_hash
     )
   end
 
-  def dynamic_any_address_fields_match(:from, address_bytes) do
-    dynamic(
-      [t],
-      t.hash ==
-        fragment(
-          ~s"""
-          (SELECT tt.transaction_hash
-          FROM "token_transfers" AS tt
-          WHERE (tt."from_address_hash" = ?)
-          LIMIT 1)
-          """,
-          ^address_bytes
-        )
+  def where_any_address_fields_match(query, :from, address_hash) do
+    from(
+      t in query,
+      join: tt in TokenTransfer,
+      on: tt.transaction_hash == t.hash,
+      where: tt.from_address_hash == ^address_hash
     )
   end
 
-  def dynamic_any_address_fields_match(_, address_bytes) do
-    dynamic(
-      [t],
-      t.hash ==
-        fragment(
-          ~s"""
-          (SELECT tt.transaction_hash
-          FROM "token_transfers" AS tt
-          WHERE ((tt."to_address_hash" = ?) OR (tt."from_address_hash" = ?))
-          LIMIT 1)
-          """,
-          ^address_bytes,
-          ^address_bytes
-        )
+  def where_any_address_fields_match(query, _, address_hash) do
+    from(
+      t in query,
+      join: tt in TokenTransfer,
+      on: tt.transaction_hash == t.hash,
+      where: tt.from_address_hash == ^address_hash or tt.to_address_hash == ^address_hash
     )
   end
 
