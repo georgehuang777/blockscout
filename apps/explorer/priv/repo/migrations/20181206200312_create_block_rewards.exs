@@ -1,8 +1,8 @@
-defmodule Explorer.Repo.Migrations.CreateValidationRewards do
+defmodule Explorer.Repo.Migrations.CreateBlockRewards do
   use Ecto.Migration
 
   def change do
-    create table(:validation_rewards, primary_key: false) do
+    create table(:block_rewards, primary_key: false) do
       add(:address_hash, :bytea, null: false)
       add(:block_number, :bigint, null: false)
       add(:reward, :numeric, precision: 100, null: false)
