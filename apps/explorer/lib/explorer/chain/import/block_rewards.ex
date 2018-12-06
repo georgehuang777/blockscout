@@ -1,10 +1,10 @@
-defmodule Explorer.Chain.Import.ValidationRewards do
+defmodule Explorer.Chain.Import.BlockRewards do
   @moduledoc """
-  Bulk imports `t:Explorer.Chain.Block.ValidationReward.t/0`.
+  Bulk imports `t:Explorer.Chain.Block.BlockReward.t/0`.
   """
 
   alias Ecto.{Changeset, Multi}
-  alias Explorer.Chain.Block.ValidationReward
+  alias Explorer.Chain.Block.BlockReward
   alias Explorer.Chain.Import
 
   @behaviour Import.Runner
@@ -12,13 +12,13 @@ defmodule Explorer.Chain.Import.ValidationRewards do
   # milliseconds
   @timeout 60_000
 
-  @type imported :: [ValidationReward.t()]
+  @type imported :: [BlockReward.t()]
 
   @impl Import.Runner
-  def ecto_schema_module, do: ValidationReward
+  def ecto_schema_module, do: BlockReward
 
   @impl Import.Runner
-  def option_key, do: :validation_rewards
+  def option_key, do: :block_rewards
 
   @impl Import.Runner
   def imported_table_row do
@@ -41,7 +41,7 @@ defmodule Explorer.Chain.Import.ValidationRewards do
   @impl Import.Runner
   def timeout, do: @timeout
 
-  @spec insert([map()], %{required(:timeout) => timeout}) :: {:ok, [ValidationReward.t()]} | {:error, [Changeset.t()]}
+  @spec insert([map()], %{required(:timeout) => timeout}) :: {:ok, [BlockReward.t()]} | {:error, [Changeset.t()]}
   defp insert(changes_list, %{timeout: timeout, timestamps: timestamps}) when is_list(changes_list) do
     Import.insert_changes_list(
       changes_list,

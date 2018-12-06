@@ -1,11 +1,11 @@
-defmodule Explorer.Chain.Block.ValidationReward do
+defmodule Explorer.Chain.Block.BlockReward do
   @moduledoc """
   Represents the total reward given to an address in a block.
   """
 
   use Explorer.Schema
 
-  alias Explorer.Chain.Block.ValidationReward
+  alias Explorer.Chain.Block.BlockReward
   alias Explorer.Chain.Hash.Address
   alias Explorer.Chain.{Block, Wei}
 
@@ -18,14 +18,14 @@ defmodule Explorer.Chain.Block.ValidationReward do
   * `:address_hash` - Hash of address who received the reward
   * `:reward` - Validation reward given in Wei
   """
-  @type t :: %ValidationReward{
+  @type t :: %BlockReward{
           block_number: Block.block_number(),
           address_hash: Address.t(),
           reward: Wei.t()
         }
 
   @primary_key false
-  schema "validation_rewards" do
+  schema "block_rewards" do
     field(:block_number, :integer)
     field(:address_hash, Address)
     field(:reward, Wei)

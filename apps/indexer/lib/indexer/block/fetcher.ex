@@ -138,12 +138,12 @@ defmodule Indexer.Block.Fetcher do
                address_token_balances: %{params: address_token_balances},
                addresses: %{params: addresses},
                block_second_degree_relations: %{params: block_second_degree_relations_params},
+               block_rewards: %{params: beneficiary_params_set},
                blocks: %{params: blocks},
                logs: %{params: logs},
                token_transfers: %{params: token_transfers},
                tokens: %{on_conflict: :nothing, params: tokens},
-               transactions: %{params: transactions_with_receipts},
-               validation_rewards: %{params: beneficiary_params_set}
+               transactions: %{params: transactions_with_receipts}
              }
            ) do
       {:ok, %{inserted: inserted, errors: blocks_errors ++ beneficiaries_errors}}
