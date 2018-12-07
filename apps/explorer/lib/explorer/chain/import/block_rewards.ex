@@ -1,4 +1,4 @@
-defmodule Explorer.Chain.Import.BlockRewards do
+defmodule Explorer.Chain.Import.Block.Rewards do
   @moduledoc """
   Bulk imports `t:Explorer.Chain.Block.Reward.t/0`.
   """

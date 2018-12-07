@@ -12,7 +12,7 @@ defmodule Explorer.Chain.Import do
     Import.Addresses,
     Import.Address.CoinBalances,
     Import.Blocks,
-    Import.BlockRewards,
+    Import.Block.Rewards,
     Import.Block.SecondDegreeRelations,
     Import.Transactions,
     Import.Transaction.Forks,
