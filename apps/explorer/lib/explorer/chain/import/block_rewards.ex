@@ -1,10 +1,10 @@
 defmodule Explorer.Chain.Import.BlockRewards do
   @moduledoc """
-  Bulk imports `t:Explorer.Chain.Block.BlockReward.t/0`.
+  Bulk imports `t:Explorer.Chain.Block.Reward.t/0`.
   """
 
   alias Ecto.{Changeset, Multi}
-  alias Explorer.Chain.Block.BlockReward
+  alias Explorer.Chain.Block.Reward
   alias Explorer.Chain.Import
 
   @behaviour Import.Runner
@@ -12,10 +12,10 @@ defmodule Explorer.Chain.Import.BlockRewards do
   # milliseconds
   @timeout 60_000
 
-  @type imported :: [BlockReward.t()]
+  @type imported :: [Reward.t()]
 
   @impl Import.Runner
-  def ecto_schema_module, do: BlockReward
+  def ecto_schema_module, do: Reward
 
   @impl Import.Runner
   def option_key, do: :block_rewards
@@ -44,7 +44,7 @@ defmodule Explorer.Chain.Import.BlockRewards do
   @spec insert([map()], %{
           required(:timeout) => timeout,
           required(:timestamps) => Import.timestamps()
-        }) :: {:ok, [BlockReward.t()]} | {:error, [Changeset.t()]}
+        }) :: {:ok, [Reward.t()]} | {:error, [Changeset.t()]}
   defp insert(changes_list, %{timeout: timeout, timestamps: timestamps})
        when is_list(changes_list) do
     Import.insert_changes_list(
